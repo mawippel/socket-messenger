@@ -12,6 +12,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.InvalidUserException;
 import model.Message;
 import model.Usuario;
 
@@ -36,11 +37,16 @@ public class SocketMessageController {
 		return instance == null ? instance = new SocketMessageController() : instance;
 	}
 
-	public List<Usuario> getUsers(String user, String pass) {
+	public List<Usuario> getUsers(String user, String pass) throws InvalidUserException {
 		Socket socket = null;
 		try {
 			socket = createDefaultSocket(1012);
 			String response = doConnection(socket, "GET USERS", user, pass);
+			
+			//Verificar se deu Usuário Inválido
+			if (response.contains("lido!")) {
+				throw new InvalidUserException("Usuário Inválido!");
+			}
 			
 			String[] splited = response.split(":");
 			List<Usuario> users = new ArrayList<>();
