@@ -9,6 +9,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Message;
 import model.Usuario;
@@ -18,21 +20,41 @@ import model.Usuario;
  *  
  * @author marcelo.wippel
  */
-public class SocketController {
+public class SocketMessageController {
+
+	private static List<Message> mensagens;
+	private static SocketMessageController instance;
 	
-	public Usuario getUsers(String user, String pass) {
+	/**
+	 * 
+	 */
+	private SocketMessageController() {
+		mensagens = new ArrayList<>();
+	}
+	
+	public static SocketMessageController getInstance() {
+		return instance == null ? instance = new SocketMessageController() : instance;
+	}
+
+	public List<Usuario> getUsers(String user, String pass) {
 		Socket socket = null;
 		try {
 			socket = createDefaultSocket(1012);
 			String response = doConnection(socket, "GET USERS", user, pass);
 			
 			String[] splited = response.split(":");
-			Usuario usuario = new Usuario();
-			usuario.setId(Integer.parseInt(splited[0]));
-			usuario.setNome(splited[1]);
-			usuario.setWins(Integer.parseInt(splited[2]));
+			List<Usuario> users = new ArrayList<>();
 			
-			return usuario;
+			//Um usuário a cada loop
+			for (int i = 0; i < splited.length; i += 3) {
+				Usuario u = new Usuario();
+				u.setId(Integer.parseInt(splited[i]));
+				u.setNome(splited[i + 1]);
+				u.setWins(Integer.parseInt(splited[i + 2]));
+				users.add(u);
+			}
+			
+			return users;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -48,7 +70,7 @@ public class SocketController {
 		}
 	}
 	
-	public Message getMessage(String user, String pass) {
+	public List<Message> getMessage(String user, String pass) {
 		Socket socket = null;
 		try {
 			socket = createDefaultSocket(1012);
@@ -60,7 +82,9 @@ public class SocketController {
 				return null;
 			}
 			
-			return new Message(Integer.parseInt(splited[0]), splited[1]);
+			mensagens.add(new Message(Integer.parseInt(splited[0]), splited[1]));
+			
+			return mensagens;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
