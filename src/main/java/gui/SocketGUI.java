@@ -1,67 +1,30 @@
 package gui;
 
-import java.util.List;
-
-import controller.SocketMessageController;
-import model.Message;
-import model.Usuario;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * Interface do usuário.
- * @author marcelo.wippel
+ * @author matheushr97, marcelo.wippel
  */
-public class SocketGUI {
+public class SocketGUI extends Application {
 
 	public static void main (String[] args) {
-		try {
-			SocketMessageController sc = SocketMessageController.getInstance();
-			
-			List<Usuario> users = sc.getUsers("10277", "tafhg");
-			System.out.println("--------USUÁRIOS LOGADOS-------");
-			System.out.println(users);
-			
-			try {
-				Thread.sleep(150);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			users = sc.getUsers("5094", "pbapd");
-			System.out.println("--------USUÁRIOS LOGADOS-------");
-			System.out.println(users);
+		launch(args);
+	}
 
-			try {
-				Thread.sleep(150);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			users = sc.getUsers("5094", "pbapd");
-			System.out.println("--------USUÁRIOS LOGADOS-------");
-			System.out.println(users);
-			
-			Message m = new Message(0, "Teste do Marcelo!");
-			sc.sendMessage("1027", "tafhg", m);
-			
-			Message m2 = new Message(0, "Matheus que enviou para o servidor");
-			sc.sendMessage("5094", "pbapd", m2);
-			
-			try {
-				Thread.sleep(150);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			List<Message> message = sc.getMessage("1027", "tafhg");
-			System.out.println("------------MENSAGEM-----------");
-			System.out.println(message);
-			
-			message = sc.getMessage("5094", "pbapd");
-			System.out.println("------------MENSAGEM-----------");
-			System.out.println(message);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@Override
+	public void start(Stage stage) throws Exception {
+		Pane root = FXMLLoader.load(getClass().getResource("/fxml/principal.fxml"));
+    
+        Scene scene = new Scene(root, 750, 450);
+    
+        stage.setTitle("FURB Messager");
+        stage.setScene(scene);
+        stage.show();
 	}
 	
 }
