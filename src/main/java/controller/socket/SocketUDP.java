@@ -21,9 +21,9 @@ public class SocketUDP extends AbstractSocket {
 
 			// Prepara um pacote com o buffer e as informações do destinatário
 			InetAddress ip = InetAddress.getByName("larc.inf.furb.br");
-			DatagramPacket pack = new DatagramPacket(s, s.length, ip, 8000);
+			DatagramPacket pack = new DatagramPacket(s, s.length, ip, 1011);
 
-			// Cria um socket UDP e envia o pacote para localhost:8000
+			// Cria um socket UDP e envia o pacote
 			DatagramSocket socket = new DatagramSocket();
 			socket.send(pack);
 

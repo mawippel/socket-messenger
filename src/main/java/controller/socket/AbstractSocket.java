@@ -30,10 +30,10 @@ public abstract class AbstractSocket {
 		sb.append(adicionarParametros(usuarioLogado.getId(), usuarioLogado.getSenha()));
 		
 		if (parametros != null && parametros.length > 0) {
-			sb.append(adicionarParametros(parametros));
+			sb.append(":").append(adicionarParametros(parametros));
 		}
 
-		return sb.toString();
+		return sb.toString().concat(System.lineSeparator());
 	}
 
 	/**

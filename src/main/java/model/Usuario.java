@@ -7,6 +7,24 @@ public class Usuario {
 	private String nome;
 	private int wins;
 
+	public Usuario() {
+		// Default Constructor.
+	}
+
+	public Usuario(int id, String senha) {
+		super();
+		this.id = id;
+		this.senha = senha;
+	}
+	
+	public Usuario(int id, String senha, String nome, int wins) {
+		super();
+		this.id = id;
+		this.senha = senha;
+		this.nome = nome;
+		this.wins = wins;
+	}
+
 	public int getId() {
 		return id;
 	}
