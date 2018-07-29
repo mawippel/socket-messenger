@@ -30,7 +30,7 @@ public class MessageController {
 	}
 
 	public List<Usuario> getUsers() throws InvalidUserException {
-		Optional<String> response = Connection.doConnection(TipoConexao.TCP, "GET USERS ");
+		Optional<String> response = Connection.doConnection(TipoConexao.TCP, "GET USERS");
 		if (response.isPresent()) {
 			// Verificar se deu Usuário Inválido
 			if (response.get().contains("lido!")) {
@@ -55,7 +55,7 @@ public class MessageController {
 	}
 
 	public List<Message> getMessage() {
-		Optional<String> response = Connection.doConnection(TipoConexao.TCP, "GET MESSAGE ");
+		Optional<String> response = Connection.doConnection(TipoConexao.TCP, "GET MESSAGE");
 		if (response.isPresent()) {
 			String[] splited = response.get().split(":");
 
@@ -70,6 +70,6 @@ public class MessageController {
 	}
 
 	public void sendMessage(Message message) {
-		Connection.doConnection(TipoConexao.UDP, "SEND MESSAGE ", message.getId(), message.getMessage());
+		Connection.doConnection(TipoConexao.UDP, "SEND MESSAGE", message.getId(), message.getMessage());
 	}
 }

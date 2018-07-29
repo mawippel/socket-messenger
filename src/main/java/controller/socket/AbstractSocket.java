@@ -25,7 +25,7 @@ public abstract class AbstractSocket {
 	protected abstract Optional<String> doConnection(String comando);
 
 	private static String montaComando(String comando, Object... parametros) {
-		StringBuilder sb = new StringBuilder(comando);
+		StringBuilder sb = new StringBuilder(comando.concat(" "));
 		Usuario usuarioLogado = AppSession.getUsuarioLogado();
 		sb.append(adicionarParametros(usuarioLogado.getId(), usuarioLogado.getSenha()));
 		
