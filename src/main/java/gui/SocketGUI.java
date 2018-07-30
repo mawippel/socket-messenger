@@ -1,9 +1,8 @@
 package gui;
 
+import gui.manager.StageManager;
+import gui.manager.Tela;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -18,13 +17,7 @@ public class SocketGUI extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Pane root = FXMLLoader.load(getClass().getResource("/fxml/principal.fxml"));
-    
-        Scene scene = new Scene(root, 750, 450);
-    
-        stage.setTitle("FURB Messager");
-        stage.setScene(scene);
-        stage.show();
+		StageManager.abrirTela(Tela.AUTENTICACAO);
 	}
 	
 }

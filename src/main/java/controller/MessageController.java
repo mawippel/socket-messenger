@@ -7,6 +7,9 @@ import java.util.Optional;
 import controller.socket.Connection;
 import controller.socket.TipoConexao;
 import exception.InvalidUserException;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import model.Message;
 import model.Usuario;
 
@@ -17,12 +20,12 @@ import model.Usuario;
  */
 public class MessageController {
 
-	private List<Message> mensagens;
+	private ListProperty<Message> mensagens;
 	private static MessageController instance;
 
 
 	private MessageController() {
-		mensagens = new ArrayList<>();
+		mensagens = new SimpleListProperty<Message>(FXCollections.observableArrayList());
 	}
 
 	public static MessageController getInstance() {
@@ -67,6 +70,10 @@ public class MessageController {
 			return mensagens;
 		}
 		return null;
+	}
+	
+	public ListProperty<Message> getMessageProperty(){
+		return this.mensagens;
 	}
 
 	public void sendMessage(Message message) {
