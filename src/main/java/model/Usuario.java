@@ -11,6 +11,11 @@ public class Usuario {
 		// Default Constructor.
 	}
 
+	public Usuario(int id) {
+		super();
+		this.id = id;
+	}
+
 	public Usuario(int id, String senha) {
 		super();
 		this.id = id;
