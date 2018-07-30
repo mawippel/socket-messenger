@@ -21,11 +21,13 @@ import model.Usuario;
 public class MessageController {
 
 	private ListProperty<Message> mensagens;
+	private ListProperty<Usuario> usuarios;
 	private static MessageController instance;
 
 
 	private MessageController() {
 		mensagens = new SimpleListProperty<Message>(FXCollections.observableArrayList());
+		usuarios = new SimpleListProperty<Usuario>(FXCollections.observableArrayList());
 	}
 
 	public static MessageController getInstance() {
@@ -41,7 +43,7 @@ public class MessageController {
 			}
 
 			String[] splited = response.get().split(":");
-			List<Usuario> users = new ArrayList<>();
+			ArrayList<Usuario> users = new ArrayList<>();
 
 			// Um usuário a cada loop
 			for (int i = 0; i < splited.length; i += 3) {
@@ -51,8 +53,11 @@ public class MessageController {
 				u.setWins(Integer.parseInt(splited[i + 2]));
 				users.add(u);
 			}
+			
+			usuarios.clear();
+			usuarios.addAll(users);
 
-			return users;
+			return usuarios;
 		}
 		return null;
 	}
@@ -74,6 +79,10 @@ public class MessageController {
 	
 	public ListProperty<Message> getMessageProperty(){
 		return this.mensagens;
+	}
+	
+	public ListProperty<Usuario> getUsuarioProperty(){
+		return this.usuarios;
 	}
 
 	public void sendMessage(Message message) {

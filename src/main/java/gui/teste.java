@@ -1,9 +1,12 @@
 package gui;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import controller.AppSession;
 import controller.MessageController;
+import controller.schedule.ScheduleController;
 import exception.InvalidUserException;
 import model.Message;
 import model.Usuario;
@@ -30,6 +33,39 @@ public class teste {
 		List<Message> message = mc.getMessage();
 		System.out.println("------------MENSAGEM-----------");
 		System.out.println(message);
+		Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(new Runnable() {
+			
+			@Override
+			public void run() {
+				System.out.println(mc.getMessageProperty().toString());
+				System.out.println(mc.getUsuarioProperty().toString());
+			}
+		}, 10, 5, TimeUnit.SECONDS);
+		ScheduleController.getInstance().start();
+		
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			ScheduleController.getInstance().stop();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			ScheduleController.getInstance().restart();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
