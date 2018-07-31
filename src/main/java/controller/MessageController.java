@@ -55,7 +55,7 @@ public class MessageController {
 			}
 			
 			usuarios.clear();
-			createDefaultUsers();
+			insertDefaultUser();
 			usuarios.addAll(users);
 
 			return usuarios;
@@ -98,6 +98,10 @@ public class MessageController {
 	
 	private void createDefaultUsers(){
 		usuarios = new SimpleListProperty<Usuario>(FXCollections.observableArrayList());
+		insertDefaultUser();
+	}
+
+	private void insertDefaultUser() {
 		Usuario u = new Usuario(0);
 		u.setNome("Todos");
 		usuarios.add(u);
