@@ -27,7 +27,7 @@ public class teste {
 		System.out.println("--------USUÁRIOS LOGADOS-------");
 		System.out.println(users);
 		
-		Message m = new Message(0, "Teste do Marcelo!");
+		Message m = new Message(new Usuario(0), "Teste do Marcelo!");
 		mc.sendMessage(m);
 		
 		List<Message> message = mc.getMessage();

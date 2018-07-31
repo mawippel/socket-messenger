@@ -27,7 +27,7 @@ public class MessageController {
 
 	private MessageController() {
 		mensagens = new SimpleListProperty<Message>(FXCollections.observableArrayList());
-		usuarios = new SimpleListProperty<Usuario>(FXCollections.observableArrayList());
+		createDefaultUsers();
 	}
 
 	public static MessageController getInstance() {
@@ -55,6 +55,7 @@ public class MessageController {
 			}
 			
 			usuarios.clear();
+			createDefaultUsers();
 			usuarios.addAll(users);
 
 			return usuarios;
@@ -71,7 +72,13 @@ public class MessageController {
 				return null;
 			}
 
-			mensagens.add(new Message(Integer.parseInt(splited[0]), splited[1]));
+			// Procura o usuário na lista de usuários logados.
+			int userID = Integer.parseInt(splited[0]);
+			Optional<Usuario> filteredList = usuarios.stream().filter(u -> u.getId() == userID).findAny();
+			
+			// Adiciona a mensagem referenciado ao usuário encontrado, caso não encontre o usuário, vincula ao usuário "Todos"
+			mensagens.add(new Message(filteredList.orElse(usuarios.get(0)), splited[1]));
+			
 			return mensagens;
 		}
 		return null;
@@ -88,4 +95,11 @@ public class MessageController {
 	public void sendMessage(Message message) {
 		Connection.doConnection(TipoConexao.UDP, "SEND MESSAGE", message.getId(), message.getMessage());
 	}
+	
+	private void createDefaultUsers(){
+		usuarios = new SimpleListProperty<Usuario>(FXCollections.observableArrayList());
+		Usuario u = new Usuario(0);
+		u.setNome("Todos");
+		usuarios.add(u);
+	};
 }

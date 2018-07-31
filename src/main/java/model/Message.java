@@ -2,22 +2,30 @@ package model;
 
 public class Message {
 	
-	private int id;
 	private String message;
-
-	public Message(int id, String message) {
-		this.id = id;
+	private Usuario usuario;
+	
+	public Message(Usuario usuario, String message) {
+		this.usuario = usuario;
 		this.message = message;
 	}
 
+	/**
+	 * Apenas para facilitar o acesso ao ID do usuário.
+	 * @return um int
+	 */
 	public int getId() {
-		return id;
+		return this.usuario.getId();
 	}
 	
-	public void setId(int id) {
-		this.id = id;
+	public Usuario getUsuario() {
+		return usuario;
 	}
-	
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public String getMessage() {
 		return message;
 	}
@@ -35,7 +43,7 @@ public class Message {
 	
 	@Override
 	public String toString() {
-		return new StringBuilder().append(getId()).append(" - ").append(getMessage()).toString();
+		return new StringBuilder().append(getUsuario().getNome()).append(" - ").append(getMessage()).toString();
 	}
 	
 }
