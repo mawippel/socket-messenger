@@ -22,12 +22,11 @@ public class Usuario {
 		this.senha = senha;
 	}
 	
-	public Usuario(int id, String senha, String nome, int wins) {
+	public Usuario(int id, String senha, String nome) {
 		super();
 		this.id = id;
 		this.senha = senha;
 		this.nome = nome;
-		this.wins = wins;
 	}
 
 	public int getId() {
@@ -64,8 +63,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return new StringBuilder().append(getId()).append(" - ").append(getNome()).append(" - ").append(getWins())
-				.toString();
+		return String.format("[%s] - %s", id, nome);
 	}
 
 }

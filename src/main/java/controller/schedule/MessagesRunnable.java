@@ -1,6 +1,7 @@
 package controller.schedule;
 
 import controller.MessageController;
+import javafx.application.Platform;
 
 public class MessagesRunnable implements Runnable{
 	
@@ -8,7 +9,10 @@ public class MessagesRunnable implements Runnable{
 	
 	@Override
 	public void run() {
-		mc.getMessage(); //Popular o MessageController
+		Platform.runLater(()-> {
+			mc.getMessage(); //Popular o MessageController
+		});
+		
 	}
 
 }

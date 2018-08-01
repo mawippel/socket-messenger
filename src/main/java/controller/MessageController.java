@@ -23,6 +23,8 @@ public class MessageController {
 	private ListProperty<Message> mensagens;
 	private ListProperty<Usuario> usuarios;
 	private static MessageController instance;
+	
+	public static final Usuario USUARIO_TODOS = new Usuario(0, null, "Todos");
 
 
 	private MessageController() {
@@ -38,8 +40,8 @@ public class MessageController {
 		Optional<String> response = Connection.doConnection(TipoConexao.TCP, "GET USERS");
 		if (response.isPresent()) {
 			// Verificar se deu Usuário Inválido
-			if (response.get().contains("lido!")) {
-				throw new InvalidUserException("Usuário Inválido!");
+			if (response.get().trim().isEmpty() || response.get().contains("lido!")) {
+				throw new InvalidUserException("Usuário inválido!");
 			}
 
 			String[] splited = response.get().split(":");
@@ -77,7 +79,7 @@ public class MessageController {
 			Optional<Usuario> filteredList = usuarios.stream().filter(u -> u.getId() == userID).findAny();
 			
 			// Adiciona a mensagem referenciado ao usuário encontrado, caso não encontre o usuário, vincula ao usuário "Todos"
-			mensagens.add(new Message(filteredList.orElse(usuarios.get(0)), splited[1]));
+			mensagens.add(new Message(filteredList.orElse(USUARIO_TODOS), splited[1]));
 			
 			return mensagens;
 		}
@@ -102,8 +104,6 @@ public class MessageController {
 	}
 
 	private void insertDefaultUser() {
-		Usuario u = new Usuario(0);
-		u.setNome("Todos");
-		usuarios.add(u);
+		usuarios.add(USUARIO_TODOS);
 	};
 }
