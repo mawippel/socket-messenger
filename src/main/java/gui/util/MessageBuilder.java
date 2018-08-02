@@ -8,7 +8,7 @@ public class MessageBuilder {
 	public static Alert buildErro(String texto) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Erro");
-		alert.setHeaderText("Ocoreu um erro");
+		alert.setHeaderText("Ocorreu um erro");
 		alert.setContentText(texto);
 		return alert;
 	}

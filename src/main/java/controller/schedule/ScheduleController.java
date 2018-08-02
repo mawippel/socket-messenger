@@ -28,7 +28,7 @@ public class ScheduleController {
 		}
 		try{
 			usersExecutorService = Executors.newSingleThreadScheduledExecutor();
-			usersExecutorService.scheduleAtFixedRate(new UsersRunnable(), 0, 7, TimeUnit.SECONDS);
+			usersExecutorService.scheduleAtFixedRate(new UsersRunnable(), 0, 6, TimeUnit.SECONDS);
 			
 			messagesExecutorService = Executors.newSingleThreadScheduledExecutor();
 			messagesExecutorService.scheduleAtFixedRate(new MessagesRunnable(), 0, 15, TimeUnit.SECONDS);

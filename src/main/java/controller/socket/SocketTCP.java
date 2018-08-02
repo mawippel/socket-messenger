@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 /**
@@ -24,7 +25,7 @@ public class SocketTCP extends AbstractSocket {
 			d.write(comando.getBytes("UTF-8"));
 
 			// Prepara um buffer para receber a resposta do servidor
-			InputStreamReader s = new InputStreamReader(sock.getInputStream());
+			InputStreamReader s = new InputStreamReader(sock.getInputStream(), StandardCharsets.UTF_8);
 			BufferedReader rec = new BufferedReader(s);
 
 			// Lê os dados enviados pela aplicação servidora
