@@ -1,5 +1,6 @@
 package gui;
 
+import controller.schedule.ScheduleController;
 import gui.manager.StageManager;
 import gui.manager.Tela;
 import javafx.application.Application;
@@ -18,6 +19,11 @@ public class SocketGUI extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		StageManager.abrirTela(Tela.AUTENTICACAO);
+	}
+	
+	@Override
+	public void stop() throws Exception {
+		ScheduleController.getInstance().stop();
 	}
 	
 }
