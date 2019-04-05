@@ -1,3 +1,3 @@
-# socket-messenger-furb
+# socket-messenger
 
-Trabalho da matéria de Prática em Redes de Computadores da Universidade Regional de Blumenau (FURB).
+Talking Chat implemented using Sockets in Java.
